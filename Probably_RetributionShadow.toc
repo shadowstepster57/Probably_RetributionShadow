@@ -1,0 +1,6 @@
+## Interface: 50400
+## Title: Probably - Retribution[Shadow]
+## Notes: ProbablyEngine Custom Retribution Paladin
+## Dependencies: Probably
+
+rotation.lua
