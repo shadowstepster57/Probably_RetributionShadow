@@ -8,16 +8,31 @@ ProbablyEngine.rotation.register_custom(70, "Retribution[Shadow]", {
     
     --Save somebody
     { "Lay on Hands", {
-    	    "lowest.health < 20",
+    	    "lowest.health < 10",
     	    "modifier.cooldowns"
     }, "lowest" },
     { "Flash of Light", {
-    	    "lowest.health < 20",
-    	    "player.buff(Selfless Healer).count = 3"
+    	    "lowest.health < 30",
+    	    "player.buff(Selfless Healer).stacks = 3"
+    }, "lowest" },
+    { "Flash of Light", {
+    	    "lowest.health < 30",
+    	    "player.buff(Selfless Healer)",
+    	    "!player.moving",
+    	    "player.mana > 60"
     }, "lowest" },
     
     --Interrupts
-    { "Rebuke", "modifier.interrupts", "target" },
+    { "Rebuke", {
+    "modifier.interrupts",
+    "target.casting.percent = 75"
+    }},
+    
+    --Break Roots
+    { "Emancipate", {
+    	    "player.state.root",
+    	    "player.state.snare"
+    }},
     
     --Cooldowns
     { "Avenging Wrath", {
@@ -40,62 +55,29 @@ ProbablyEngine.rotation.register_custom(70, "Retribution[Shadow]", {
     }},
     
     --DPS
+    {{	{ "Templar's Verdict", "player.holypower = 5"},
+        { "Hammer of Wrath" },
+        { "Execution Sentence" },
+    	{ "Exorcism" },
+    	{ "Crusader Strike" },
+    	{ "Judgement" },
+    	{ "Templar's Verdict" },
+    }, "!modifier.multitarget" },
     {{	{ "Templar's Verdict", {
         "player.holypower = 5",
-        "!modifier.multitarget"
+        "modifier.enemies <= 2"
         }},
         { "Divine Storm", {
         "player.holypower = 5",
-        "modifier.multitarget"
-        }, "target.range <= 8" },
+        "modifier.enemies > 2"
+        }, "target.range < 8" },
         { "Hammer of Wrath" },
-        { "Execution Sentence", "spell.cooldown(Hammer of Wrath) > 0.2" },
-        { "Hammer of the Righteous", {
-        	"modifier.multitarget",
-        	"spell.cooldown(Hammer of Wrath) > 0.2" 
-        }},
-    	{ "Exorcism", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Crusader Strike", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Judgement", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Templar's Verdict", "!modifier.multitarget" },
-    	{ "Divine Storm", "modifier.multitarget" },
-    }, "player.buff(Avenging Wrath)"},
-    {{	{ "Templar's Verdict", {
-        "player.holypower = 5",
-        "!modifier.multitarget"
-        }},
-        { "Divine Storm", {
-        "player.holypower = 5",
-        "modifier.multitarget"
-        }, "target.range <= 8" },
-        { "Hammer of Wrath" },
-        { "Execution Sentence", "spell.cooldown(Hammer of Wrath) > 0.2" },
-        { "Hammer of the Righteous", {
-        	"modifier.multitarget",
-        	"spell.cooldown(Hammer of Wrath) > 0.2" 
-        }},
-    	{ "Exorcism", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Crusader Strike", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Judgement", "spell.cooldown(Hammer of Wrath) > 0.2" },
-    	{ "Templar's Verdict", "!modifier.multitarget" },
-    	{ "Divine Storm", "modifier.multitarget" },
-    }, "target.health < 20"},
-    
-    { "Templar's Verdict", {
-        "player.holypower = 5",
-        "!modifier.multitarget"
-    }},
-    { "Divine Storm", {
-        "player.holypower >= 3",
-        "modifier.multitarget"
-    }, "target.range <= 8" },
-    { "Hammer of the Righteous", "modifier.multitarget" },
-    { "Execution Sentence", "player.buff(Inquisition)" },
-    { "Exorcism" },
-    { "Crusader Strike", "!modifier.multitarget" },
-    { "Judgment" },
-    { "Templar's Verdict", "!modifier.multitarget" },
-    { "Divine Storm", "modifier.multitarget" },
-  }, {
-    { "Blessing of Might", "!player.buff(Blessing of Might)" },
+        { "Execution Sentence" },
+        { "Hammer of the Righteous", "modifier.enemies > 3" },
+    	{ "Exorcism"},
+    	{ "Crusader Strike" },
+    	{ "Judgement" },
+    	{ "Divine Storm", "modifier.enemies > 2" },
+    	{ "Templar's Verdict"},
+    }, "modifier.multitarget" },
 })
