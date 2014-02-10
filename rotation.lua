@@ -50,12 +50,16 @@ ProbablyEngine.rotation.register_custom(70, "Retribution[Shadow]", {
         "player.holypower >= 3"
     }},
     { "Inquisition", {
-        "player.buff(Inquisition).duration <= 2",
+    	"player.buff(Inquisition).duration <= 2",
         "player.holypower >= 3"
     }},
     
     --DPS
     {{	{ "Templar's Verdict", "player.holypower = 5"},
+    	{ "Divine Storm", {
+    		"player.buff(144593)",
+    		"target.range < 8"
+    	}},
         { "Hammer of Wrath" },
         { "Execution Sentence" },
     	{ "Exorcism" },
@@ -67,6 +71,10 @@ ProbablyEngine.rotation.register_custom(70, "Retribution[Shadow]", {
         "player.holypower = 5",
         "modifier.enemies <= 2"
         }},
+        { "Divine Storm", {
+    		"player.buff(144593)",
+    		"target.range < 8"
+    	}},
         { "Divine Storm", {
         "player.holypower = 5",
         "modifier.enemies > 2"
